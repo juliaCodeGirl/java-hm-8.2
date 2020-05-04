@@ -1,13 +1,33 @@
 package ru.netology.domain;
 
 public class Radio {
-    private int maxChannel = 9;
+    private int maxChannel = 10;
     private int minChannel = 0;
-    private int maxVolume = 10;
+    private int maxVolume = 100;
     private int minVolume = 0;
     private int currentChannel;
     private int currentVolume;
 
+    public Radio() {
+    }
+
+    public Radio(int maxChannel) {
+        this.maxChannel = maxChannel;
+    }
+
+    public Radio(int currentChannel, int maxChannel) {
+        this.currentChannel = currentChannel;
+        this.maxChannel = maxChannel;
+    }
+
+    public Radio(int maxChannel, int minChannel, int maxVolume, int minVolume, int currentChannel, int currentVolume) {
+        this.maxChannel = maxChannel;
+        this.minChannel = minChannel;
+        this.maxVolume = maxVolume;
+        this.minVolume = minVolume;
+        this.currentChannel = currentChannel;
+        this.currentVolume = currentVolume;
+    }
 
     public int getMaxChannel() {
         return maxChannel;
@@ -46,7 +66,7 @@ public class Radio {
     }
 
     public void setCurrentChannel(int currentChannel) {
-        if (currentChannel > maxChannel){
+        if (currentChannel > maxChannel) {
             this.currentChannel = maxChannel;
             return;
         }
@@ -74,17 +94,22 @@ public class Radio {
     }
 
     public void increaseChannel() {
-        if (currentChannel >= maxChannel) {
-            return;
+        if (currentChannel < maxChannel) {
+            currentChannel++;
+
+        } else {
+            currentChannel = minChannel;
         }
-        currentChannel++;
     }
 
     public void decreaseChannel() {
-        if (currentChannel <= minChannel) {
-            return;
+        if (currentChannel > minChannel) {
+            currentChannel--;
+
         }
-        currentChannel--;
+        else {
+            currentChannel = maxChannel;
+        }
     }
 
     public void increaseVolume() {
@@ -93,6 +118,7 @@ public class Radio {
         }
         currentVolume++;
     }
+
     public void decreaseVolume() {
         if (currentVolume <= minVolume) {
             return;
