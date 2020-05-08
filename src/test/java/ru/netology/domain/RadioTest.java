@@ -12,7 +12,6 @@ class RadioTest {
         radio.setCurrentChannel(3);
         radio.increaseChannel();
         assertEquals(4, radio.getCurrentChannel());
-
     }
 
     @Test
@@ -25,15 +24,14 @@ class RadioTest {
 
     @Test
     void setCurrentChannelAndMaxChannel() {
-        Radio radio = new Radio(24);
-        radio.setCurrentChannel(20);
+        Radio radio = new Radio(20,24);
         radio.increaseChannel();
         assertEquals(21, radio.getCurrentChannel());
     }
 
     @Test
     void channelOverMaxForDefault() {
-        Radio radio = new Radio(10, 10);
+        Radio radio = new Radio(12,10);
         radio.increaseChannel();
         assertEquals(0, radio.getCurrentChannel());
     }
@@ -44,6 +42,21 @@ class RadioTest {
         radio.decreaseChannel();
         assertEquals(10, radio.getCurrentChannel());
 
+    }
+
+    @Test
+    void channelOverMin() {
+        Radio radio = new Radio();
+        radio.setCurrentChannel(-2);
+        radio.decreaseChannel();
+        assertEquals(10, radio.getCurrentChannel());
+    }
+
+    @Test
+    void channelOverMax() {
+        Radio radio = new Radio(35,10);
+        radio.increaseChannel();
+        assertEquals(0, radio.getCurrentChannel());
     }
 
     //проверка громкости
@@ -75,6 +88,22 @@ class RadioTest {
     void volumeOverMinForDefault () {
         Radio radio = new Radio();
         radio.setCurrentVolume(0);
+        radio.decreaseVolume();
+        assertEquals(0, radio.getCurrentVolume());
+    }
+
+    @Test
+    void volumeOverMax() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(146);
+        radio.increaseVolume();
+        assertEquals(100, radio.getCurrentVolume());
+    }
+
+    @Test
+    void volumeOverMin() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(-20);
         radio.decreaseVolume();
         assertEquals(0, radio.getCurrentVolume());
     }
